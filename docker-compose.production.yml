@@ -20,7 +20,7 @@ services:
         - traefik.http.routers.github.service=github
         - traefik.http.routers.github.rule=Host(`cef-datamarketplace-tmcleaning.translated.com`)
         - traefik.http.routers.github.entryPoints=web
-        - traefik.http.services.github.loadBalancer.server.port=8080
+        - traefik.http.services.github.loadBalancer.server.port=8081
         - traefik.http.services.github.loadBalancer.passHostHeader=true
         - traefik.docker.lbswarm=true
         - traefik.docker.network = traefik
