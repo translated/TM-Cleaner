@@ -3,17 +3,12 @@ services:
   clean-cef:
     image: translatednet/clean-cef:latest
     networks:
-      traefik:
-        aliases:
-          - cef-datamarketplace-tmcleaning.translated.com
-    logging:
-      driver: json-file
+      - traefik
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints:           
-            - node.role == manager
             - node.labels.zone == dc
       labels:
         - traefik.enable=true
