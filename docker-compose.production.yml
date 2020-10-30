@@ -17,8 +17,6 @@ services:
         - traefik.http.routers.clean-cef.entryPoints=web
         - traefik.http.services.clean-cef.loadBalancer.server.port=8081
         - traefik.http.services.clean-cef.loadBalancer.passHostHeader=true
-        - traefik.docker.lbswarm=true
-        - traefik.docker.network = traefik
       restart_policy:
         condition: on-failure
         delay: 10s
