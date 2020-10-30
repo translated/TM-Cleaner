@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  github:
+    image: translatednet/clean-cef:latest
+    networks:
+      traefik:
+        aliases:
+          - cef-datamarketplace-tmcleaning.translated.com
+    logging:
+      driver: json-file
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:           
+            - node.role == manager
+            - node.labels.zone == dc
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.github.service=github
+        - traefik.http.routers.github.rule=Host(`cef-datamarketplace-tmcleaning.translated.com`)
+        - traefik.http.routers.github.entryPoints=web
+        - traefik.http.services.github.loadBalancer.server.port=8080
+        - traefik.http.services.github.loadBalancer.passHostHeader=true
+        - traefik.docker.lbswarm=true
+        - traefik.docker.network = traefik
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        window: 60s
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G   
+networks:
+  traefik:
+    external: true
+    
